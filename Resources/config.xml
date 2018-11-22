@@ -17,7 +17,7 @@
         <element type="text">
             <name>attributeDispatchType</name>
             <label>Versandart</label>
-            <value>attr14</value>
+            <value>attr13</value>
             <description>In welchem Attribut wird die Versandart gepflegt? P: Paket, G: Spedition</description>
         </element>
 
