@@ -20,6 +20,43 @@ use Shopware\Components\Plugin\Context\InstallContext;
 class Install
 {
     /**
+     * ...
+     *
+     * @var array
+     */
+    public static $attributes = [
+        's_premium_dispatch_attributes' => [
+            [
+                'column' => 'ost_shipping_costs_status',
+                'type'   => 'boolean',
+                'data'   => [
+                    'label'            => 'Automatik aktivieren',
+                    'helpText'         => 'Generiert automatisch die Versandkosten für diese Versandart.',
+                    'translatable'     => false,
+                    'displayInBackend' => true,
+                    'custom'           => false,
+                    'position'         => 100
+                ]
+            ],
+            [
+                'column' => 'ost_shipping_costs_type',
+                'type'   => 'combobox',
+                'data'   => [
+                    'label'            => 'Art des Versands',
+                    'helpText'         => 'Welchem Typ entspricht diese Versandart?',
+                    'translatable'     => false,
+                    'displayInBackend' => true,
+                    'custom'           => false,
+                    'position'         => 105,
+                    'arrayStore'       => [
+                        ['key' => '1', 'value' => 'Paket'],
+                        ['key' => '2', 'value' => 'Spedition']
+                    ],
+                ]
+            ]
+        ]
+    ];
+    /**
      * Main bootstrap object.
      *
      * @var Plugin
@@ -50,27 +87,6 @@ class Install
     /**
      * ...
      *
-     * @var array
-     */
-    protected $attributes = [
-        's_premium_dispatch_attributes' => [
-            [
-                'column' => 'ost_shipping_costs_status',
-                'type'   => 'boolean',
-                'data'   => [
-                    'label'            => 'Automatik aktivieren',
-                    'helpText'         => 'Generiert automatisch den Namen der Versandart sowie die Versandkosten für diese Versandart.',
-                    'translatable'     => false,
-                    'displayInBackend' => true,
-                    'custom'           => false
-                ]
-            ]
-        ]
-    ];
-
-    /**
-     * ...
-     *
      * @param Plugin         $plugin
      * @param InstallContext $context
      * @param ModelManager   $modelManager
@@ -92,19 +108,5 @@ class Install
      */
     public function install()
     {
-        // ...
-        foreach ($this->attributes as $table => $attributes) {
-            foreach ($attributes as $attribute) {
-                $this->crudService->update(
-                    $table,
-                    $attribute['column'],
-                    $attribute['type'],
-                    $attribute['data']
-                );
-            }
-        }
-
-        // ...
-        $this->modelManager->generateAttributeModels(array_keys($this->attributes));
     }
 }

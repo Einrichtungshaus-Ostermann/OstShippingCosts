@@ -52,17 +52,32 @@ class sAdmin
 
         // check if our current dispatch method is activated for our plugin
         $query = '
-            SELECT 1
+            SELECT ost_shipping_costs_type
             FROM s_premium_dispatch_attributes
             WHERE dispatchID = :id
                 AND ost_shipping_costs_status = 1
         ';
-        if ((int) Shopware()->Db()->fetchOne($query, ['id' => (int) $dispatchId]) === 0) {
+        $type = (int) Shopware()->Db()->fetchOne($query, ['id' => (int) $dispatchId]);
+
+        // remove if the attribute is not set for this dispach method
+        if ($type === 0) {
             return;
         }
 
         // get basket articles
         $articles = $this->getArticles();
+
+        // we only support truck articles
+        if (count($articles['G']) > 0 && $type !== 2) {
+            // remove it
+            return;
+        }
+
+        // and only packages
+        if (count($articles['G']) === 0 && $type !== 1) {
+            // ignore it
+            return;
+        }
 
         // ignore p or only use g
         $articles = ((count($articles['P']) > 0) && (count($articles['G']) === 0))
@@ -127,10 +142,24 @@ class sAdmin
                 continue;
             }
 
+            /*
             // change the name based on articles
             $methods[$key]['name'] = (count($articles['G']) > 0)
                 ? 'Hermes Spedition'
                 : 'DHL Paket';
+            */
+
+            // remove with wrong typ
+            if (count($articles['G']) > 0 && (int) $method['attribute']['ost_shipping_costs_type'] !== 2) {
+                // remove it
+                unset($methods[$key]);
+            }
+
+            // same with other
+            if (count($articles['G']) === 0 && (int) $method['attribute']['ost_shipping_costs_type'] !== 1) {
+                // remove it
+                unset($methods[$key]);
+            }
         }
 
         // set new return value

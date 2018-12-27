@@ -3,10 +3,16 @@
 /**
  * Einrichtungshaus Ostermann GmbH & Co. KG - Shipping Costs
  *
- * Shipping Cost
+ * Calculates the shipping costs for every article and activates and/or deactivates
+ * the dispatch method depending on the dispatch type (package or spedition) saved
+ * in the attribute.
  *
  * 1.0.0
  * - initial release
+ *
+ * 1.1.0
+ * - added attribute to select dispatch type (package or truck). the name of the
+ *   dispatch method is no longer rewritten by the plugin
  *
  * @package   OstShippingCosts
  *
@@ -70,7 +76,9 @@ class OstShippingCosts extends Plugin
         // update it to current version
         $updater = new Setup\Update(
             $this,
-            $context
+            $context,
+            $this->container->get('models'),
+            $this->container->get('shopware_attribute.crud_service')
         );
         $updater->install();
 
@@ -88,7 +96,9 @@ class OstShippingCosts extends Plugin
         // update the plugin
         $updater = new Setup\Update(
             $this,
-            $context
+            $context,
+            $this->container->get('models'),
+            $this->container->get('shopware_attribute.crud_service')
         );
         $updater->update($context->getCurrentVersion());
 

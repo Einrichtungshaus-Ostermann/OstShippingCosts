@@ -12,6 +12,7 @@
 
 namespace OstShippingCosts\Setup;
 
+use Exception;
 use Shopware\Bundle\AttributeBundle\Service\CrudService;
 use Shopware\Components\Model\ModelManager;
 use Shopware\Components\Plugin;
@@ -50,27 +51,6 @@ class Uninstall
     /**
      * ...
      *
-     * @var array
-     */
-    protected $attributes = [
-        's_premium_dispatch_attributes' => [
-            [
-                'column' => 'ost_shipping_costs_status',
-                'type'   => 'boolean',
-                'data'   => [
-                    'label'            => 'Automatik aktivieren',
-                    'helpText'         => 'Generiert automatisch den Namen der Versandart sowie die Versandkosten für diese Versandart.',
-                    'translatable'     => false,
-                    'displayInBackend' => true,
-                    'custom'           => false
-                ]
-            ]
-        ]
-    ];
-
-    /**
-     * ...
-     *
      * @param Plugin           $plugin
      * @param UninstallContext $context
      * @param ModelManager     $modelManager
@@ -93,16 +73,19 @@ class Uninstall
     public function uninstall()
     {
         // ...
-        foreach ($this->attributes as $table => $attributes) {
+        foreach (Install::$attributes as $table => $attributes) {
             foreach ($attributes as $attribute) {
-                $this->crudService->delete(
-                    $table,
-                    $attribute['column']
-                );
+                try {
+                    $this->crudService->delete(
+                        $table,
+                        $attribute['column']
+                    );
+                } catch (Exception $exception) {
+                }
             }
         }
 
         // ...
-        $this->modelManager->generateAttributeModels(array_keys($this->attributes));
+        $this->modelManager->generateAttributeModels(array_keys(Install::$attributes));
     }
 }
