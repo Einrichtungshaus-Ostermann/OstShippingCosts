@@ -60,9 +60,14 @@ class ArticleService implements ArticleServiceInterface
             return 0.0;
         }
 
+        // always return calculated shipping costs
+        return (float) $attributes[$this->configuration['attributeCalculatedShippingCosts']];
+
         // return by dispatch type
+        /*
         return ($this->getDispatchType($attributes) === 'P')
             ? (float) $attributes[$this->configuration['attributeCalculatedShippingCosts']]
             : (float) $attributes[$this->configuration['attributeErpShippingCosts']];
+        */
     }
 }

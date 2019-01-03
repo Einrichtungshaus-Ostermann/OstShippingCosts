@@ -16,6 +16,7 @@
  *
  * 1.1.1
  * - fixed attribute name for fullserviceprice
+ * - changed source of shipping costs to always use calculated article shipping costs
  *
  * @package   OstShippingCosts
  *
