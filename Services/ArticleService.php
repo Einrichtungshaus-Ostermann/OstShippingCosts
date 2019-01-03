@@ -55,7 +55,7 @@ class ArticleService implements ArticleServiceInterface
     public function getShippingCosts(array $attributes): float
     {
         // fullservice price?
-        if ((int) $attributes[$this->configuration['attributeDispatchType']] === 2) {
+        if ((int) $attributes[$this->configuration['attributeTag']] === 2) {
             // no costs
             return 0.0;
         }

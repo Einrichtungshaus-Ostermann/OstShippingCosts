@@ -14,6 +14,9 @@
  * - added attribute to select dispatch type (package or truck). the name of the
  *   dispatch method is no longer rewritten by the plugin
  *
+ * 1.1.1
+ * - fixed attribute name for fullserviceprice
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>
