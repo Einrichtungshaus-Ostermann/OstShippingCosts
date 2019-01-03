@@ -4,7 +4,7 @@
  * Einrichtungshaus Ostermann GmbH & Co. KG - Shipping Costs
  *
  * Calculates the shipping costs for every article and activates and/or deactivates
- * the dispatch method depending on the dispatch type (package or spedition) saved
+ * the dispatch method depending on the dispatch type (package or truck) saved
  * in the attribute.
  *
  * 1.0.0
