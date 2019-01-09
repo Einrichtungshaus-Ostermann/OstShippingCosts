@@ -15,20 +15,6 @@
         </element>
 
         <element type="text">
-            <name>attributeDispatchType</name>
-            <label>Versandart</label>
-            <value>attr13</value>
-            <description>In welchem Attribut wird die Versandart gepflegt? P: Paket, G: Spedition</description>
-        </element>
-
-        <element type="text">
-            <name>attributeErpShippingCosts</name>
-            <label>IWM Versandkosten</label>
-            <value>attr15</value>
-            <description>In welchem Attribut werden die Versandkosten des IWM gepflegt? Diese Versandkosten werden nur bei Versandart G betrachtet.</description>
-        </element>
-
-        <element type="text">
             <name>attributeCalculatedShippingCosts</name>
             <label>Berechnete Versandkosten</label>
             <value>attr8</value>
@@ -36,10 +22,17 @@
         </element>
 
         <element type="text">
+            <name>attributeDispatchType</name>
+            <label>IWM Versandart</label>
+            <value>attr13</value>
+            <description>In welchem Attribut wird die Versandart gepflegt? P: Paket, G: Spedition</description>
+        </element>
+
+        <element type="text">
             <name>attributeTag</name>
-            <label>Etikett</label>
-            <value>attr10</value>
-            <description>In welchem Attribut wird das Etikett gepflegt? 0: Abholpreis, 1: Lieferpreis, 2: Vollservicepreis</description>
+            <label>IWM Etikettenart</label>
+            <value>attr18</value>
+            <description>In welchem Attribut wird das Etikettenart gepflegt? 0: Abholpreis, 1: Lieferpreis, 2: Vollservicepreis</description>
         </element>
 
     </elements>

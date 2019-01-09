@@ -18,6 +18,10 @@
  * - fixed attribute name for fullserviceprice
  * - changed source of shipping costs to always use calculated article shipping costs
  *
+ * 1.1.2
+ * - fixed default configuration value for attributeTag
+ * - removed obsolete configuration value
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>
