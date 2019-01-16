@@ -12,6 +12,7 @@
 
 namespace OstShippingCosts\Setup;
 
+use OstShippingCosts\Models;
 use Shopware\Bundle\AttributeBundle\Service\CrudService;
 use Shopware\Components\Model\ModelManager;
 use Shopware\Components\Plugin;
@@ -53,8 +54,53 @@ class Install
                         ['key' => '2', 'value' => 'Spedition']
                     ],
                 ]
-            ]
+            ],
+            [
+                'column' => 'ost_shipping_costs_selfdelivery_status',
+                'type'   => 'boolean',
+                'data'   => [
+                    'label'            => 'Eigenauslieferung aktivieren',
+                    'helpText'         => 'Ist diese Versandart als Eigenauslieferung definiert? Nur möglich, wenn die Art des Versands "Spedition" ist. Diese Versandart wird aktiviert, sobald sich die Auslieferung in bekannten PLZ-Gebieten befindet. Sollte es sich bei dieser Versandart nicht um eine Eigenauslieferung handelt, dann wird diese Versandart in bekannten PLZ-Gebieten deaktiviert.',
+                    'translatable'     => false,
+                    'displayInBackend' => true,
+                    'custom'           => false,
+                    'position'         => 110
+                ]
+            ],
+            [
+                'column' => 'ost_shipping_costs_drop_status',
+                'type'   => 'boolean',
+                'data'   => [
+                    'label'            => 'Abwurfaufträge abfertigen',
+                    'helpText'         => 'Soll diese Versandart Abwurfaufträge abfertigen? Nur möglich, wenn die Art des Versands "Spedition" ist. Andere "Spedition" Versandarten werden deaktiviert.',
+                    'translatable'     => false,
+                    'displayInBackend' => true,
+                    'custom'           => false,
+                    'position'         => 115
+                ]
+            ],
+            [
+                'column' => 'ost_shipping_costs_express_status',
+                'type'   => 'boolean',
+                'data'   => [
+                    'label'            => 'Express Versandart',
+                    'helpText'         => 'Ist dies eine Express Versandart - z.B. DHL Express / DHL Same Day Delivery?',
+                    'translatable'     => false,
+                    'displayInBackend' => true,
+                    'custom'           => false,
+                    'position'         => 120
+                ]
+            ],
         ]
+    ];
+
+    /**
+     * ...
+     *
+     * @var array
+     */
+    public static $models = [
+        Models\SelfDelivery::class
     ];
     /**
      * Main bootstrap object.

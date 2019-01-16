@@ -22,6 +22,12 @@
  * - fixed default configuration value for attributeTag
  * - removed obsolete configuration value
  *
+ * 1.2.0
+ * - added self-delivery checkbox for dispatch methods for a specific area (via zip code)
+ * - added drop checkbox for dispatch methods which can be configured to always
+ *   be selected if the plugin configuration is set
+ * - added express checkbox for dispatch methods with a specific surcharge
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>

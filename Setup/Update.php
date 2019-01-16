@@ -80,12 +80,17 @@ class Update
      */
     public function update($version)
     {
+        // switch old version
         switch ($version) {
             case '0.0.0':
-                $this->updateAttributes();
-                // no break
             case '1.0.0':
                 $this->updateAttributes();
+                // no break
+            case '1.1.0':
+            case '1.1.1':
+            case '1.1.2':
+                $this->updateAttributes();
+                $this->updateSql('1.2.0');
         }
     }
 
@@ -113,5 +118,22 @@ class Update
 
         // ...
         $this->modelManager->generateAttributeModels(array_keys(Install::$attributes));
+    }
+
+    /**
+     * ...
+     *
+     * @param string $version
+     */
+    private function updateSql($version)
+    {
+        // get the sql query for this update
+        $sql = @file_get_contents(rtrim(Shopware()->Container()->getParameter('ost_shipping_costs.plugin_dir'), '/') . '/Setup/Update/update-' . $version . '.sql');
+
+        // execute the query and catch any db exception and ignore it
+        try {
+            Shopware()->Db()->exec($sql);
+        } catch (Exception $exception) {
+        }
     }
 }

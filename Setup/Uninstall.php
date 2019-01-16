@@ -12,6 +12,7 @@
 
 namespace OstShippingCosts\Setup;
 
+use Doctrine\ORM\Tools\SchemaTool;
 use Exception;
 use Shopware\Bundle\AttributeBundle\Service\CrudService;
 use Shopware\Components\Model\ModelManager;
@@ -73,6 +74,18 @@ class Uninstall
     public function uninstall()
     {
         // ...
+        $this->uninstallAttributes();
+        $this->uninstallModels();
+    }
+
+    /**
+     * ...
+     *
+     * @throws \Exception
+     */
+    public function uninstallAttributes()
+    {
+        // ...
         foreach (Install::$attributes as $table => $attributes) {
             foreach ($attributes as $attribute) {
                 try {
@@ -87,5 +100,31 @@ class Uninstall
 
         // ...
         $this->modelManager->generateAttributeModels(array_keys(Install::$attributes));
+    }
+
+    /**
+     * ...
+     */
+    private function uninstallModels()
+    {
+        // get entity manager
+        $em = $this->modelManager;
+
+        // get our schema tool
+        $tool = new SchemaTool($em);
+
+        // ...
+        $classes = array_map(
+            function ($model) use ($em) {
+                return $em->getClassMetadata($model);
+            },
+            Install::$models
+        );
+
+        // remove them
+        try {
+            $tool->dropSchema($classes);
+        } catch (Exception $exception) {
+        }
     }
 }

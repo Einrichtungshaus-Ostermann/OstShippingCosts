@@ -8,19 +8,42 @@
             <label><![CDATA[<b>Allgemeine Einstellungen</b>]]></label>
         </element>
 
+        <element type="boolean">
+            <name>shopStatus</name>
+            <label>Shop aktivieren</label>
+            <description>Soll das Plugin für diesen Shop aktiviert werden?</description>
+        </element>
+
+        <element type="button">
+            <name>dispatchAttributeButton</name>
+            <label><![CDATA[<b>Attribute</b>]]></label>
+        </element>
+
+        <element type="text">
+            <name>attributeErpMapping</name>
+            <label>Warenwirtschaft Mapping</label>
+            <value>attr1</value>
+            <description>In welchem Attribut wird das Mapping für die Warenwirtschaft gepflegt?</description>
+        </element>
 
         <element type="button">
             <name>attributeButton</name>
-            <label><![CDATA[<b>Attribute</b>]]></label>
+            <label><![CDATA[<b>Artikel Attribute</b>]]></label>
         </element>
 
         <element type="text">
             <name>attributeCalculatedShippingCosts</name>
             <label>Berechnete Versandkosten</label>
             <value>attr8</value>
-            <description>In welchem Attribut werden die berechneten Versandkosten gepflegt? Diese Versandkosten werden nur bei Versandart P betrachtet.</description>
+            <description>In welchem Attribut werden die berechneten Versandkosten gepflegt?</description>
         </element>
 
+        <element type="text">
+            <name>attributeHwg</name>
+            <label>IWM Handelswarengruppe</label>
+            <value>attr2</value>
+            <description>In welchem Attribut wird die HWG gepflegt?</description>
+        </element>
         <element type="text">
             <name>attributeDispatchType</name>
             <label>IWM Versandart</label>
@@ -33,6 +56,83 @@
             <label>IWM Etikettenart</label>
             <value>attr18</value>
             <description>In welchem Attribut wird das Etikettenart gepflegt? 0: Abholpreis, 1: Lieferpreis, 2: Vollservicepreis</description>
+        </element>
+
+        <element type="button">
+            <name>dropButton</name>
+            <label><![CDATA[<b>Abwurfaufträge</b>]]></label>
+        </element>
+
+        <element type="boolean">
+            <name>dropStatus</name>
+            <label>Abwurfaufträge aktivieren</label>
+            <description>Sollen Abwurfaufträge für reguläre Eigenauslieferungen aktiviert werden?</description>
+        </element>
+
+        <element type="date">
+            <name>dropStartDate</name>
+            <label>Start Datum</label>
+            <description>...</description>
+        </element>
+
+        <element type="date">
+            <name>dropEndDate</name>
+            <label>Ende Datum</label>
+            <description>...</description>
+        </element>
+
+        <element type="button">
+            <name>dropSettingsButton</name>
+            <label><![CDATA[<b>Abwurfaufträge Einstellungen</b>]]></label>
+        </element>
+
+        <element type="number">
+            <name>dropMaxArticles</name>
+            <label>Maximale Anzahl Artikel</label>
+            <value>1</value>
+            <description>Wie viele Artikel dürfen maximal im Warenkorb sein, damit eine Bestellung als Abwurfauftrag gilt.</description>
+        </element>
+
+        <element type="number">
+            <name>dropMaxBasket</name>
+            <label>Maximaler Warenkorbwert</label>
+            <value>2500</value>
+            <description>Bis zu welchem Warenkorbwert gilt eine Bestellung als Abwurfauftrag? Angabe in Euro und Brutto.</description>
+        </element>
+
+        <element type="textarea">
+            <name>dropExcludeHwg</name>
+            <label>Ausgeschlossene HWG</label>
+            <value><![CDATA[60
+65]]></value>
+            <description>Wenn eine Bestellung Artikel dieser Handelswarengruppe enthält, dann gilt sie nie als Abwurfauftrag.</description>
+        </element>
+
+        <element type="textarea">
+            <name>dropExcludeSupplier</name>
+            <label>Ausgeschlossene Hersteller</label>
+            <value><![CDATA[joop
+hülsta]]></value>
+            <description>Wenn eine Bestellung Artikel dieser Hersteller enthält, dann gilt sie nie als Abwurfauftrag.</description>
+        </element>
+
+        <element type="button">
+            <name>expressButton</name>
+            <label><![CDATA[<b>Express Einstellungen</b>]]></label>
+        </element>
+
+        <element type="number">
+            <name>expressSurcharge</name>
+            <label>Aufschlag</label>
+            <value>10</value>
+            <description>Der Aufschlag in Euro und Brutto für Express Sendungen.</description>
+        </element>
+
+        <element type="text">
+            <name>expressStockAttribute</name>
+            <label>Attribut Bestand in Witten</label>
+            <value>attr31</value>
+            <description>In welchem Attribut wird der Bestand des Artikels am Standort Witten gepflegt?</description>
         </element>
 
     </elements>

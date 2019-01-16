@@ -52,12 +52,16 @@ class sAdmin
 
         // check if our current dispatch method is activated for our plugin
         $query = '
-            SELECT ost_shipping_costs_type
+            SELECT *
             FROM s_premium_dispatch_attributes
             WHERE dispatchID = :id
                 AND ost_shipping_costs_status = 1
         ';
-        $type = (int) Shopware()->Db()->fetchOne($query, ['id' => (int) $dispatchId]);
+        $attributes = Shopware()->Db()->fetchRow($query, ['id' => (int) $dispatchId]);
+
+        // set params
+        $type = (int) $attributes['ost_shipping_costs_type'];
+        $express = (bool) $attributes['ost_shipping_costs_express_status'];
 
         // remove if the attribute is not set for this dispach method
         if ($type === 0) {
@@ -80,8 +84,9 @@ class sAdmin
         }
 
         // ignore p or only use g
+        // if we have only p we do NOT sum up the articles so we only use the first article with 1 quantity
         $articles = ((count($articles['P']) > 0) && (count($articles['G']) === 0))
-            ? $articles['P']
+            ? array( array_merge( $articles['P'][0], array( 'quantity' => 1 ) ) )
             : $articles['G'];
 
         // summed up shipping costs
@@ -93,6 +98,12 @@ class sAdmin
             $costs += $article['quantity'] * $article['costs'];
         }
 
+        // is this express dispatc method?!
+        if ( $express === true ) {
+            // add costs
+            $costs += (float) $this->configuration['expressSurcharge'];
+        }
+        
         // get return value
         $return = $arguments->getReturn();
 
@@ -134,6 +145,11 @@ class sAdmin
         // get our articles
         $articles = $this->getArticles();
 
+        // current zip code
+        $zip = (!empty(Shopware()->Session()->get('sRegister')['shipping']['zipcode']))
+            ? (string) Shopware()->Session()->get('sRegister')['shipping']['zipcode']
+            : (string) Shopware()->Session()->get('sRegister')['billing']['zipcode'];
+
         // loop every method
         foreach ($methods as $key => $method) {
             // activated for this plugin?
@@ -142,23 +158,79 @@ class sAdmin
                 continue;
             }
 
-            /*
-            // change the name based on articles
-            $methods[$key]['name'] = (count($articles['G']) > 0)
-                ? 'Hermes Spedition'
-                : 'DHL Paket';
-            */
+            // default package
+            if ((int) $method['attribute']['ost_shipping_costs_type'] === 1) {
+                // only active if we have only p articles
+                if (count($articles['G']) > 0) {
+                    // remove it
+                    unset($methods[$key]);
 
-            // remove with wrong typ
-            if (count($articles['G']) > 0 && (int) $method['attribute']['ost_shipping_costs_type'] !== 2) {
-                // remove it
-                unset($methods[$key]);
+                    // and next
+                    continue;
+                }
+
+                // is this express delivery?
+                if ((bool) $method['attribute']['ost_shipping_costs_express_status'] === true) {
+                    // we need every article to be available in witten
+                    // @todo we dont have an attribute for this yet
+                }
+
+                // allright... done with p
+                continue;
             }
 
-            // same with other
-            if (count($articles['G']) === 0 && (int) $method['attribute']['ost_shipping_costs_type'] !== 1) {
-                // remove it
-                unset($methods[$key]);
+            // via truck
+            if ((int) $method['attribute']['ost_shipping_costs_type'] === 2) {
+                // we need at least one g article
+                if (count($articles['G']) === 0) {
+                    // remove it
+                    unset($methods[$key]);
+
+                    // and next
+                    continue;
+                }
+
+                // drop method first and ignore self delivery after
+                if ($this->configuration['dropStatus'] === true && substr_count($this->configuration['dropStartDate'], 'T00:00:00') > 0 && substr_count($this->configuration['dropEndDate'], 'T00:00:00') > 0) {
+                    // create date objects
+                    $start = new \DateTime($this->configuration['dropStartDate']);
+                    $end = new \DateTime($this->configuration['dropEndDate']);
+
+                    // are we within the dates?
+                    if (time() > $start->getTimestamp() && time() < $end->getTimestamp() && $this->isValidDropBasket()) {
+                        // we remove every dispatch method which is NOT a drop method
+                        if ((bool) $method['attribute']['ost_shipping_costs_drop_status'] === false) {
+                            // remove it
+                            unset($methods[$key]);
+                        }
+
+                        // ignore every other check and get on with the next
+                        continue;
+                    }
+                }
+
+                // check for self delivery
+                $query = '
+                    SELECT COUNT(*)
+                    FROM ost_shipping_costs_selfdelivery
+                    WHERE zip LIKE :zip
+                ';
+                $count = (int) Shopware()->Db()->fetchOne($query, ['zip' => $zip]);
+
+                // do we have self delivery?!
+                if ($count > 0) {
+                    // we remove every dispatch method which is NOT for self delivery
+                    if ((bool) $method['attribute']['ost_shipping_costs_selfdelivery_status'] === false) {
+                        // remove it
+                        unset($methods[$key]);
+                    }
+                } else {
+                    // we remove every dispatch method which IS for self delivery
+                    if ((bool) $method['attribute']['ost_shipping_costs_selfdelivery_status'] === true) {
+                        // remove it
+                        unset($methods[$key]);
+                    }
+                }
             }
         }
 
@@ -219,5 +291,65 @@ class sAdmin
 
         // return them
         return $articles;
+    }
+
+    /**
+     * ...
+     *
+     * @return bool
+     */
+    private function isValidDropBasket(): bool
+    {
+        // get the current basket
+        $basket = Shopware()->Modules()->Basket()->sGetBasket();
+
+        // max articles
+        if ((!is_array($basket)) || (!isset($basket['content'])) || (!is_array($basket['content'])) || (count($basket['content']) > (int) $this->configuration['dropMaxArticles'])) {
+            // nope
+            return false;
+        }
+
+        // max amount
+        if ((float) $basket['AmountNumeric'] > (float) $this->configuration['dropMaxBasket']) {
+            // nope
+            return false;
+        }
+
+        // exclude these
+        $hwg = explode('<br>', nl2br($this->configuration['dropExcludeHwg'], false));
+        $supplier = explode('<br>', nl2br($this->configuration['dropExcludeSupplier'], false));
+
+        // trim both
+        $hwg = array_map(function ($current) { return trim($current); }, $hwg);
+        $supplier = array_map(function ($current) { return trim($current); }, $supplier);
+
+        // loop every article
+        foreach ($basket['content'] as $article) {
+            // valid attribute?
+            if (!isset($article['additional_details']['attributes']) || (!is_array($article['additional_details']['attributes'])) || (!$article['additional_details']['attributes']['core'] instanceof Attribute)) {
+                continue;
+            }
+
+            /* @var Attribute $attributes */
+            $attributes = $article['additional_details']['attributes']['core'];
+
+            // invalid hwg?
+            if (in_array($attributes->get('attributeHwg'), $hwg)) {
+                // invalid
+                return false;
+            }
+
+            // loop every invalid supplier
+            foreach ($supplier as $supplierName) {
+                // found in this article?
+                if (substr_count(strtolower($supplierName), $article['additional_details']['supplierName']) > 0) {
+                    // invalid
+                    return false;
+                }
+            }
+        }
+
+        // complete basket is fine
+        return true;
     }
 }
