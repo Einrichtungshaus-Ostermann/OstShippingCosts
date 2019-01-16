@@ -103,7 +103,7 @@ class sAdmin
             // add costs
             $costs += (float) $this->configuration['expressSurcharge'];
         }
-        
+
         // get return value
         $return = $arguments->getReturn();
 

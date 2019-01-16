@@ -28,6 +28,9 @@
  *   be selected if the plugin configuration is set
  * - added express checkbox for dispatch methods with a specific surcharge
  *
+ * 1.2.1
+ * - fixed attribute description
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>

@@ -16,12 +16,12 @@
 
         <element type="button">
             <name>dispatchAttributeButton</name>
-            <label><![CDATA[<b>Attribute</b>]]></label>
+            <label><![CDATA[<b>Versandkosten Attribute</b>]]></label>
         </element>
 
         <element type="text">
             <name>attributeErpMapping</name>
-            <label>Warenwirtschaft Mapping</label>
+            <label>IWM Mapping</label>
             <value>attr1</value>
             <description>In welchem Attribut wird das Mapping für die Warenwirtschaft gepflegt?</description>
         </element>
