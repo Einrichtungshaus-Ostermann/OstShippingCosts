@@ -10,6 +10,13 @@
             <argument type="string">OstShippingCosts</argument>
         </service>
 
+        <!-- commands -->
+        <service id="ost_shipping_costs.commands.sync_self_delivery_zip_command" class="OstShippingCosts\Commands\SyncSelfDeliveryZipCommand">
+            <tag name="console.command" command="ost-shipping-costs:sync-self-delivery-zip"/>
+            <argument type="service" id="db"/>
+            <argument type="service" id="ost_erp_api.api"/>
+        </service>
+
         <!-- services -->
         <service id="ost_shipping_costs.article_service" class="OstShippingCosts\Services\ArticleService">
             <argument type="service" id="ost_shipping_costs.configuration" />

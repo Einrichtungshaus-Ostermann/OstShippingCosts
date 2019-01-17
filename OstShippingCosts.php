@@ -31,6 +31,9 @@
  * 1.2.1
  * - fixed attribute description
  *
+ * 1.2.2
+ * - added command to sync zip codes for self-delivery via erp api
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>
