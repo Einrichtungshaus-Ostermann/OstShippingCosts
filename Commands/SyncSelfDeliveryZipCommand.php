@@ -88,7 +88,7 @@ class SyncSelfDeliveryZipCommand extends ShopwareCommand
                 continue;
 
             // every zip
-            for ( $i = $start; $i++; $i <= $end )
+            for ( $i = $start; $i <= $end; $i++ )
             {
                 // ...
                 $query = "
