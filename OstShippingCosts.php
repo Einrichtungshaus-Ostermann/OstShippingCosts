@@ -34,6 +34,9 @@
  * 1.2.2
  * - added command to sync zip codes for self-delivery via erp api
  *
+ * 1.2.3
+ * - changed base calculation of shipping costs from net to gross to fix faulty rounding
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>

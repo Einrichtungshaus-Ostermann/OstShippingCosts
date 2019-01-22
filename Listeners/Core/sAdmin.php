@@ -113,16 +113,13 @@ class sAdmin
         // force valid tax if we have an zero shipping costs
         $tax = ($tax === 1.0) ? 1.19 : $tax;
 
-        // make it net to calculate it further
-        $costs = $costs / $tax;
-
-        // add surcharge to the costs
-        $costs = round($costs + ($return['surcharge'] / $tax), 2);
+        // add current surcharge to our costs
+        $costs = $costs + $return['surcharge'];
 
         // set new return
-        $return['value'] = round($costs * $tax, 2);
-        $return['netto'] = round($costs, 2);
-        $return['brutto'] = round($return['netto'] * $tax, 2);
+        $return['value'] = round($costs, 2);
+        $return['netto'] = round($costs / $tax, 2);
+        $return['brutto'] = round($costs, 2);
 
         // set new value
         $arguments->setReturn($return);
@@ -297,6 +294,7 @@ class sAdmin
      * ...
      *
      * @return bool
+     *
      */
     private function isValidDropBasket(): bool
     {
