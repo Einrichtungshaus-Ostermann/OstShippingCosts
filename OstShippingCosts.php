@@ -37,6 +37,9 @@
  * 1.2.3
  * - changed base calculation of shipping costs from net to gross to fix faulty rounding
  *
+ * 1.2.4
+ * - fixed stock check for express shipping
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>

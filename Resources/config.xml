@@ -131,7 +131,7 @@ hülsta]]></value>
         <element type="text">
             <name>expressStockAttribute</name>
             <label>Attribut Bestand in Witten</label>
-            <value>attr31</value>
+            <value>stock_wit</value>
             <description>In welchem Attribut wird der Bestand des Artikels am Standort Witten gepflegt?</description>
         </element>
 

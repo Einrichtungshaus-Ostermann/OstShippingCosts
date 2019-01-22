@@ -168,8 +168,20 @@ class sAdmin
 
                 // is this express delivery?
                 if ((bool) $method['attribute']['ost_shipping_costs_express_status'] === true) {
-                    // we need every article to be available in witten
-                    // @todo we dont have an attribute for this yet
+                    // we need every article to be available in this witten (because we send every package from witten)
+                    $stock = array_column(array_column($articles['P'],"attributes"),$this->configuration['expressStockAttribute']);
+
+                    // valid stocks
+                    $validStocks = array_map( function( $quantity ) { return ((int) $quantity > 0) ? 1 : 0; }, $stock );
+
+                    // every article has to be available
+                    if ( array_sum($validStocks) < count($validStocks)) {
+                        // sry... not enough stock
+                        unset($methods[$key]);
+
+                        // next
+                        continue;
+                    }
                 }
 
                 // allright... done with p
@@ -280,9 +292,10 @@ class sAdmin
 
             // add article to our array
             array_push($articles[$type], [
-                'number'   => $article['ordernumber'],
-                'quantity' => (int) $article['quantity'],
-                'costs'    => $costs,
+                'number'     => $article['ordernumber'],
+                'quantity'   => (int) $article['quantity'],
+                'costs'      => $costs,
+                'attributes' => $attributes->toArray()
             ]);
         }
 
