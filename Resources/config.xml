@@ -60,7 +60,7 @@
 
         <element type="button">
             <name>dropButton</name>
-            <label><![CDATA[<b>Abwurfaufträge</b>]]></label>
+            <label><![CDATA[<b>Abwurfaufträge (Hermes statt Eigenauslieferung)</b>]]></label>
         </element>
 
         <element type="boolean">

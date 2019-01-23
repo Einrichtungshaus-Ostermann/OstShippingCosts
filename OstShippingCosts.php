@@ -40,6 +40,9 @@
  * 1.2.4
  * - fixed stock check for express shipping
  *
+ * 1.2.5
+ * - changed title of configuration
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>
