@@ -63,6 +63,9 @@
  * 1.4.4
  * - fixed article addition handling for moebel-shop
  *
+ * 1.4.5
+ * - fixed type casting of possible invalid parameter
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>

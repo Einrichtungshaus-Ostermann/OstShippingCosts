@@ -44,7 +44,7 @@ class sAdmin
     public function afterShippingCosts(HookArgs $arguments)
     {
         // get dispatch id
-        $dispatchId = Shopware()->Session()->offsetGet('sDispatch');
+        $dispatchId = (int) Shopware()->Session()->offsetGet('sDispatch');
 
         /* @var $calculatorService CalculatorServiceInterface */
         $calculatorService = Shopware()->Container()->get('ost_shipping_costs.calculator_service');
