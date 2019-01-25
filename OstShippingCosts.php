@@ -57,6 +57,9 @@
  * 1.4.2
  * - fixed addition calculation for inhouse package articles
  *
+ * 1.4.3
+ * - removed dependency injection from console command
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>

@@ -30,21 +30,12 @@ class SyncSelfDeliveryZipCommand extends ShopwareCommand
     private $db;
 
     /**
-     * ...
-     *
-     * @var Api
-     */
-    private $api;
-
-    /**
      * @param Db  $db
-     * @param Api $api
      */
-    public function __construct(Db $db, Api $api)
+    public function __construct(Db $db)
     {
         parent::__construct();
         $this->db = $db;
-        $this->api = $api;
     }
 
     /**
@@ -52,9 +43,17 @@ class SyncSelfDeliveryZipCommand extends ShopwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        // are we inhouse and do we have the erp api!?
+        if (!Shopware()->Container()->initialized('ost_erp_api.api'))
+            // nothing to do
+            return;
+
+        /* @var $api Api */
+        $api = Shopware()->Container()->get('ost_erp_api.api');
+
         // get every zip with from and to
         /* @var $erpZips Zip[] */
-        $erpZips = $this->api->findBy(
+        $erpZips = $api->findBy(
             'zip',
             [
                 "L2LFB1 != '999' AND L2PLZG != '999'"
