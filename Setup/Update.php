@@ -91,6 +91,13 @@ class Update
             case '1.1.2':
                 $this->updateAttributes();
                 $this->updateSql('1.2.0');
+            case '1.2.0':
+            case '1.2.1':
+            case '1.2.2':
+            case '1.2.3':
+            case '1.2.4':
+            case '1.2.5':
+                $this->updateAttributes();
         }
     }
 

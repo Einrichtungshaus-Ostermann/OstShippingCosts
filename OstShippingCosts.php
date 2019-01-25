@@ -43,6 +43,10 @@
  * 1.2.5
  * - changed title of configuration
  *
+ * 1.3.0
+ * - added a general surcharge for calculated shipping costs which may be used for
+ *   dispatch methods outside of germany
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>

@@ -56,6 +56,18 @@ class Install
                 ]
             ],
             [
+                'column' => 'ost_shipping_costs_surcharge',
+                'type'   => 'integer',
+                'data'   => [
+                    'label'            => 'Aufschlag',
+                    'helpText'         => 'Ein genereller, einmaliger Aufschlag (Brutto / Euro) zu den berechneten Versandkosten. Der Aufschlag kann z.B. für Versandarten für Lieferungen ins Ausland genutzt werden.',
+                    'translatable'     => false,
+                    'displayInBackend' => true,
+                    'custom'           => false,
+                    'position'         => 107
+                ]
+            ],
+            [
                 'column' => 'ost_shipping_costs_selfdelivery_status',
                 'type'   => 'boolean',
                 'data'   => [

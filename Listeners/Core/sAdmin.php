@@ -114,7 +114,10 @@ class sAdmin
         $tax = ($tax === 1.0) ? 1.19 : $tax;
 
         // add current surcharge to our costs
-        $costs = $costs + $return['surcharge'];
+        $costs += $return['surcharge'];
+
+        // add surcharge from attributes
+        $costs += (integer) $attributes['ost_shipping_costs_surcharge'];
 
         // set new return
         $return['value'] = round($costs, 2);
