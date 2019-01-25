@@ -73,6 +73,12 @@ class ArticleService implements ArticleServiceInterface
             return true;
         }
 
+        // it is always addition if: type = p, context = inhouse, iwm shipping costs > 0
+        if ((string) Shopware()->Container()->get('ost_foundation.configuration')['shop'] === 'inhouse' && $this->getDispatchType($attributes) == "P" & (float) $attributes[$this->configuration['attributeDispatchCosts']] > 0) {
+            // yes... always addition
+            return true;
+        }
+
         // return by attribute
         return (int) $attributes[$this->configuration['attributeDispatchAddition']] === 1;
     }

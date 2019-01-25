@@ -54,6 +54,9 @@
  * 1.4.1
  * - moved attribute on the bottom of the configuration
  *
+ * 1.4.2
+ * - fixed addition calculation for inhouse package articles
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>
