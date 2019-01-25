@@ -67,8 +67,8 @@ class ArticleService implements ArticleServiceInterface
             return false;
         }
 
-        // trends with iwm shipping costs is always addition
-        if ((int) Shopware()->Container()->get('ost_foundation.configuration')['company'] === 3 && (float) $attributes[$this->configuration['attributeDispatchCosts']] > 0) {
+        // trends and oms with iwm shipping costs is always addition
+        if (in_array((int) Shopware()->Container()->get('ost_foundation.configuration')['company'], array(3, 99)) && (float) $attributes[$this->configuration['attributeDispatchCosts']] > 0) {
             // always addition
             return true;
         }

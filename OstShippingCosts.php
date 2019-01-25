@@ -60,6 +60,9 @@
  * 1.4.3
  * - removed dependency injection from console command
  *
+ * 1.4.4
+ * - fixed article addition handling for moebel-shop
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>
