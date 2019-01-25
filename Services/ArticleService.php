@@ -33,11 +33,7 @@ class ArticleService implements ArticleServiceInterface
     }
 
     /**
-     * ...
-     *
-     * @param array $attributes
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getDispatchType(array $attributes): string
     {
@@ -46,11 +42,7 @@ class ArticleService implements ArticleServiceInterface
     }
 
     /**
-     * ...
-     *
-     * @param array $attributes
-     *
-     * @return float
+     * {@inheritdoc}
      */
     public function getShippingCosts(array $attributes): float
     {
@@ -62,5 +54,26 @@ class ArticleService implements ArticleServiceInterface
 
         // always return calculated shipping costs
         return (float) $attributes[$this->configuration['attributeCalculatedShippingCosts']];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isAddition(array $attributes): bool
+    {
+        // we never ever have addition if we are ostermann with online shop
+        if ((int) Shopware()->Container()->get('ost_foundation.configuration')['company'] === 1 && (string) Shopware()->Container()->get('ost_foundation.configuration')['shop'] === 'online') {
+            // nope
+            return false;
+        }
+
+        // trends with iwm shipping costs is always addition
+        if ((int) Shopware()->Container()->get('ost_foundation.configuration')['company'] === 3 && (float) $attributes[$this->configuration['attributeDispatchCosts']] > 0) {
+            // always addition
+            return true;
+        }
+
+        // return by attribute
+        return (int) $attributes[$this->configuration['attributeDispatchAddition']] === 1;
     }
 }

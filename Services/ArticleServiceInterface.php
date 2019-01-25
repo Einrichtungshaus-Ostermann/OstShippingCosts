@@ -31,4 +31,13 @@ interface ArticleServiceInterface
      * @return float
      */
     public function getShippingCosts(array $attributes): float;
+
+    /**
+     * ...
+     *
+     * @param array $attributes
+     *
+     * @return bool
+     */
+    public function isAddition(array $attributes): bool;
 }

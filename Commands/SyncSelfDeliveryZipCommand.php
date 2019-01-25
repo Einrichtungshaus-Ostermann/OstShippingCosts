@@ -12,13 +12,13 @@
 
 namespace OstShippingCosts\Commands;
 
+use Enlight_Components_Db_Adapter_Pdo_Mysql as Db;
+use OstErpApi\Api\Api;
+use OstErpApi\Struct\Zip;
 use Shopware\Commands\ShopwareCommand;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Enlight_Components_Db_Adapter_Pdo_Mysql as Db;
-use OstErpApi\Api\Api;
-use OstErpApi\Struct\Zip;
 
 class SyncSelfDeliveryZipCommand extends ShopwareCommand
 {
@@ -37,7 +37,7 @@ class SyncSelfDeliveryZipCommand extends ShopwareCommand
     private $api;
 
     /**
-     * @param Db $db
+     * @param Db  $db
      * @param Api $api
      */
     public function __construct(Db $db, Api $api)
@@ -62,10 +62,10 @@ class SyncSelfDeliveryZipCommand extends ShopwareCommand
         );
 
         // remove every current zip
-        $query = "
+        $query = '
             TRUNCATE ost_shipping_costs_selfdelivery;
-        ";
-        $this->db->query( $query );
+        ';
+        $this->db->query($query);
 
         // start the progress bar
         $progressBar = new ProgressBar($output, count($erpZips));
@@ -73,29 +73,28 @@ class SyncSelfDeliveryZipCommand extends ShopwareCommand
         $progressBar->start();
 
         // ...
-        foreach ( $erpZips as $erpZip )
-        {
+        foreach ($erpZips as $erpZip) {
             // advance progress bar
             $progressBar->advance();
 
             // set start and end zips and check to prevent massive failure
             $start = (int) $erpZip->getRangeFrom();
-            $end   = (int) $erpZip->getRangeTo();
+            $end = (int) $erpZip->getRangeTo();
 
             // max 100 or this counts as invalid
-            if ( ( $end - $start > 100 ) or ( $end - $start < 0 ) )
+            if (($end - $start > 100) || ($end - $start < 0)) {
                 // next
                 continue;
+            }
 
             // every zip
-            for ( $i = $start; $i <= $end; $i++ )
-            {
+            for ($i = $start; $i <= $end; ++$i) {
                 // ...
-                $query = "
+                $query = '
                     INSERT INTO ost_shipping_costs_selfdelivery
                     SET zip = :zip
-                ";
-                $this->db->query( $query, array( 'zip' => $i ) );
+                ';
+                $this->db->query($query, ['zip' => $i]);
             }
         }
 

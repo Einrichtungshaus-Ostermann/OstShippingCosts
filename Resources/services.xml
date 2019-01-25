@@ -22,6 +22,18 @@
             <argument type="service" id="ost_shipping_costs.configuration" />
         </service>
 
+        <service id="ost_shipping_costs.basket_service" class="OstShippingCosts\Services\BasketService">
+            <argument type="service" id="ost_shipping_costs.configuration" />
+        </service>
+
+        <service id="ost_shipping_costs.dispatch_filter_service" class="OstShippingCosts\Services\DispatchFilterService">
+            <argument type="service" id="ost_shipping_costs.configuration" />
+        </service>
+
+        <service id="ost_shipping_costs.calculator_service" class="OstShippingCosts\Services\CalculatorService">
+            <argument type="service" id="ost_shipping_costs.configuration" />
+        </service>
+
         <!-- events and hooks -->
         <service id="ost_shipping_costs.listeners.core.s_admin.shipping_costs" class="OstShippingCosts\Listeners\Core\sAdmin">
             <argument type="service" id="ost_shipping_costs.configuration" />

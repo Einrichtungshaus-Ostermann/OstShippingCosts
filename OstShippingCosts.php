@@ -47,6 +47,13 @@
  * - added a general surcharge for calculated shipping costs which may be used for
  *   dispatch methods outside of germany
  *
+ * 1.4.0
+ * - split shipping costs listener into multiple services
+ * - added calculation of addition articles
+ *
+ * 1.4.1
+ * - moved attribute on the bottom of the configuration
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>

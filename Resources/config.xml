@@ -15,50 +15,6 @@
         </element>
 
         <element type="button">
-            <name>dispatchAttributeButton</name>
-            <label><![CDATA[<b>Versandkosten Attribute</b>]]></label>
-        </element>
-
-        <element type="text">
-            <name>attributeErpMapping</name>
-            <label>IWM Mapping</label>
-            <value>attr1</value>
-            <description>In welchem Attribut wird das Mapping für die Warenwirtschaft gepflegt?</description>
-        </element>
-
-        <element type="button">
-            <name>attributeButton</name>
-            <label><![CDATA[<b>Artikel Attribute</b>]]></label>
-        </element>
-
-        <element type="text">
-            <name>attributeCalculatedShippingCosts</name>
-            <label>Berechnete Versandkosten</label>
-            <value>attr8</value>
-            <description>In welchem Attribut werden die berechneten Versandkosten gepflegt?</description>
-        </element>
-
-        <element type="text">
-            <name>attributeHwg</name>
-            <label>IWM Handelswarengruppe</label>
-            <value>attr2</value>
-            <description>In welchem Attribut wird die HWG gepflegt?</description>
-        </element>
-        <element type="text">
-            <name>attributeDispatchType</name>
-            <label>IWM Versandart</label>
-            <value>attr13</value>
-            <description>In welchem Attribut wird die Versandart gepflegt? P: Paket, G: Spedition</description>
-        </element>
-
-        <element type="text">
-            <name>attributeTag</name>
-            <label>IWM Etikettenart</label>
-            <value>attr18</value>
-            <description>In welchem Attribut wird das Etikettenart gepflegt? 0: Abholpreis, 1: Lieferpreis, 2: Vollservicepreis</description>
-        </element>
-
-        <element type="button">
             <name>dropButton</name>
             <label><![CDATA[<b>Abwurfaufträge (Hermes statt Eigenauslieferung)</b>]]></label>
         </element>
@@ -133,6 +89,65 @@ hülsta]]></value>
             <label>Attribut Bestand in Witten</label>
             <value>stock_wit</value>
             <description>In welchem Attribut wird der Bestand des Artikels am Standort Witten gepflegt?</description>
+        </element>
+
+        <element type="button">
+            <name>dispatchAttributeButton</name>
+            <label><![CDATA[<b>Versandkosten Attribute</b>]]></label>
+        </element>
+
+        <element type="text">
+            <name>attributeErpMapping</name>
+            <label>IWM Mapping</label>
+            <value>attr1</value>
+            <description>In welchem Attribut wird das Mapping für die Warenwirtschaft gepflegt?</description>
+        </element>
+
+        <element type="button">
+            <name>attributeButton</name>
+            <label><![CDATA[<b>Artikel Attribute</b>]]></label>
+        </element>
+
+        <element type="text">
+            <name>attributeCalculatedShippingCosts</name>
+            <label>Berechnete Versandkosten</label>
+            <value>attr8</value>
+            <description>In welchem Attribut werden die berechneten Versandkosten gepflegt?</description>
+        </element>
+
+        <element type="text">
+            <name>attributeHwg</name>
+            <label>IWM Handelswarengruppe</label>
+            <value>attr2</value>
+            <description>In welchem Attribut wird die HWG gepflegt?</description>
+        </element>
+
+        <element type="text">
+            <name>attributeDispatchType</name>
+            <label>IWM Versandart</label>
+            <value>attr13</value>
+            <description>In welchem Attribut wird die Versandart gepflegt? P: Paket, G: Spedition</description>
+        </element>
+
+        <element type="text">
+            <name>attributeDispatchAddition</name>
+            <label>IWM Versand Addition</label>
+            <value>attr14</value>
+            <description>In welchem Attribut wird der Versand Addition Status gepflegt? 0: Nein, 1: Ja</description>
+        </element>
+
+        <element type="text">
+            <name>attributeDispatchCosts</name>
+            <label>IWM Versandkosten</label>
+            <value>attr15</value>
+            <description>In welchem Attribut werden die Versandkosten gepflegt?</description>
+        </element>
+
+        <element type="text">
+            <name>attributeTag</name>
+            <label>IWM Etikettenart</label>
+            <value>attr18</value>
+            <description>In welchem Attribut wird das Etikettenart gepflegt? 0: Abholpreis, 1: Lieferpreis, 2: Vollservicepreis</description>
         </element>
 
     </elements>
