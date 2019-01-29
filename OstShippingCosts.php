@@ -66,6 +66,9 @@
  * 1.4.5
  * - fixed type casting of possible invalid parameter
  *
+ * 1.4.6
+ * - fixed missing container parameter for install
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>
@@ -130,7 +133,8 @@ class OstShippingCosts extends Plugin
             $this,
             $context,
             $this->container->get('models'),
-            $this->container->get('shopware_attribute.crud_service')
+            $this->container->get('shopware_attribute.crud_service'),
+            $this->getPath() . '/'
         );
         $updater->install();
 
@@ -150,7 +154,8 @@ class OstShippingCosts extends Plugin
             $this,
             $context,
             $this->container->get('models'),
-            $this->container->get('shopware_attribute.crud_service')
+            $this->container->get('shopware_attribute.crud_service'),
+            $this->getPath() . '/'
         );
         $updater->update($context->getCurrentVersion());
 
