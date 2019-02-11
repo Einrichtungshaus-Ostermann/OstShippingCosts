@@ -50,6 +50,12 @@ class DispatchFilterService implements DispatchFilterServiceInterface
             ? (string) Shopware()->Session()->get('sRegister')['shipping']['zipcode']
             : (string) Shopware()->Session()->get('sRegister')['billing']['zipcode'];
 
+        // still not found?!
+        if ( empty( $zip ) ) {
+            // try order variables...
+            $zip = (string) Shopware()->Session()->get('sOrderVariables')['sUserData']['shippingaddress']['zipcode'];
+        }
+
         // loop every method
         foreach ($dispatchMethods as $key => $method) {
             // activated for this plugin?

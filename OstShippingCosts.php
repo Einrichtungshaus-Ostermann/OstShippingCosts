@@ -73,6 +73,7 @@
  * - added constants for for every shop in the foundation context configuration
  * - added same day delivery
  * - fixed handling of surcharge
+ * - fixed invalid customer delivery zip code
  *
  * @package   OstShippingCosts
  *
