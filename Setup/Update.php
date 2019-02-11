@@ -94,13 +94,11 @@ class Update
             case '0.0.0':
             case '1.0.0':
                 $this->updateAttributes();
-                // no break
             case '1.1.0':
             case '1.1.1':
             case '1.1.2':
                 $this->updateAttributes();
                 $this->updateSql('1.2.0');
-                // no break
             case '1.2.0':
             case '1.2.1':
             case '1.2.2':
@@ -108,6 +106,16 @@ class Update
             case '1.2.4':
             case '1.2.5':
                 $this->updateAttributes();
+            case '1.3.0':
+            case '1.4.0':
+            case '1.4.1':
+            case '1.4.2':
+            case '1.4.3':
+            case '1.4.4':
+            case '1.4.5':
+            case '1.4.6':
+                $this->updateAttributes();
+                $this->updateSql('1.5.0');
         }
     }
 

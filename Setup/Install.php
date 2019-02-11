@@ -96,11 +96,23 @@ class Install
                 'type'   => 'boolean',
                 'data'   => [
                     'label'            => 'Express Versandart',
-                    'helpText'         => 'Ist dies eine Express Versandart - z.B. DHL Express / DHL Same Day Delivery?',
+                    'helpText'         => 'Ist dies eine Express Versandart - z.B. DHL Express?',
                     'translatable'     => false,
                     'displayInBackend' => true,
                     'custom'           => false,
                     'position'         => 120
+                ]
+            ],
+            [
+                'column' => 'ost_shipping_costs_samedaydelivery_status',
+                'type'   => 'boolean',
+                'data'   => [
+                    'label'            => 'Same-Day Versandart',
+                    'helpText'         => 'Ist dies eine Same-Day-Delivery Versandart - z.B. DHL Same Day Delivery? Nur möglich, wenn die Art des Versands "Paket" ist.',
+                    'translatable'     => false,
+                    'displayInBackend' => true,
+                    'custom'           => false,
+                    'position'         => 125
                 ]
             ],
         ]
@@ -112,7 +124,8 @@ class Install
      * @var array
      */
     public static $models = [
-        Models\SelfDelivery::class
+        Models\SelfDelivery::class,
+        Models\SameDayDelivery::class
     ];
     /**
      * Main bootstrap object.

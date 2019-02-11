@@ -41,7 +41,7 @@ class DispatchFilterService implements DispatchFilterServiceInterface
     {
         /* @var $basketService BasketServiceInterface */
         $basketService = Shopware()->Container()->get('ost_shipping_costs.basket_service');
-
+        
         // get our articles
         $articles = $basketService->getArticles();
 
@@ -64,7 +64,6 @@ class DispatchFilterService implements DispatchFilterServiceInterface
                 if (count($articles['G']) > 0) {
                     // remove it
                     unset($dispatchMethods[$key]);
-
                     // and next
                     continue;
                 }
@@ -81,7 +80,25 @@ class DispatchFilterService implements DispatchFilterServiceInterface
                     if (array_sum($validStocks) < count($validStocks)) {
                         // sry... not enough stock
                         unset($dispatchMethods[$key]);
+                        // next
+                        continue;
+                    }
+                }
 
+                // is this same day delivery?
+                if ((bool) $method['attribute']['ost_shipping_costs_samedaydelivery_status'] === true) {
+                    // check for same day delivery
+                    $query = '
+                        SELECT COUNT(*)
+                        FROM ost_shipping_costs_samedaydelivery
+                        WHERE zip LIKE :zip
+                    ';
+                    $count = (int) Shopware()->Db()->fetchOne($query, ['zip' => $zip]);
+
+                    // this zip not for self delivery?
+                    if ($count == 0) {
+                        // sry...
+                        unset($dispatchMethods[$key]);
                         // next
                         continue;
                     }
