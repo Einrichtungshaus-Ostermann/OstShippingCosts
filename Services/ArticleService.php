@@ -15,6 +15,15 @@ namespace OstShippingCosts\Services;
 class ArticleService implements ArticleServiceInterface
 {
     /**
+     * Every constant for every shop in the foundation context configuration.
+     *
+     * @var integer
+     */
+    const COMPANY_OSTERMANN = 1;
+    const COMPANY_TRENDS = 3;
+    const COMPANY_MOEBEL_SHOP = 99;
+
+    /**
      * ...
      *
      * @var array
@@ -62,13 +71,13 @@ class ArticleService implements ArticleServiceInterface
     public function isAddition(array $attributes): bool
     {
         // we never ever have addition if we are ostermann with online shop
-        if ((int) Shopware()->Container()->get('ost_foundation.configuration')['company'] === 1 && (string) Shopware()->Container()->get('ost_foundation.configuration')['shop'] === 'online') {
+        if ((int) Shopware()->Container()->get('ost_foundation.configuration')['company'] === self::COMPANY_OSTERMANN && (string) Shopware()->Container()->get('ost_foundation.configuration')['shop'] === 'online') {
             // nope
             return false;
         }
 
         // trends and oms with iwm shipping costs is always addition
-        if (in_array((int) Shopware()->Container()->get('ost_foundation.configuration')['company'], array(3, 99)) && (float) $attributes[$this->configuration['attributeDispatchCosts']] > 0) {
+        if (in_array((int) Shopware()->Container()->get('ost_foundation.configuration')['company'], array(self::COMPANY_TRENDS, self::COMPANY_MOEBEL_SHOP)) && (float) $attributes[$this->configuration['attributeDispatchCosts']] > 0) {
             // always addition
             return true;
         }

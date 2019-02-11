@@ -69,6 +69,9 @@
  * 1.4.6
  * - fixed missing container parameter for install
  *
+ * 1.5.0
+ * - added constants for for every shop in the foundation context configuration
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>
