@@ -72,6 +72,7 @@
  * 1.5.0
  * - added constants for for every shop in the foundation context configuration
  * - added same day delivery
+ * - fixed handling of surcharge
  *
  * @package   OstShippingCosts
  *

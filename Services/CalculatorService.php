@@ -122,6 +122,9 @@ class CalculatorService implements CalculatorServiceInterface
             $costs += (int) $article['quantity'] * (float) $article['costs'];
         }
 
+        // add surcharge
+        $costs += (float) $attributes['ost_shipping_costs_surcharge'];
+
         // and we finally have the costs from the basket plus every addition article
         // depending on the context (inhouse or online)
         return $costs;
