@@ -16,6 +16,7 @@ use Shopware\Bundle\AttributeBundle\Service\CrudService;
 use Shopware\Components\Model\ModelManager;
 use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\InstallContext;
+use Exception;
 
 class Update
 {
@@ -122,7 +123,7 @@ class Update
     /**
      * ...
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function updateAttributes()
     {
@@ -136,7 +137,7 @@ class Update
                         $attribute['type'],
                         $attribute['data']
                     );
-                } catch (\Exception $exception) {
+                } catch (Exception $exception) {
                 }
             }
         }

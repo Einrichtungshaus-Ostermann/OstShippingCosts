@@ -70,10 +70,13 @@
  * - fixed missing container parameter for install
  *
  * 1.5.0
- * - added constants for for every shop in the foundation context configuration
+ * - added constants for every shop in the foundation context configuration
  * - added same day delivery
  * - fixed handling of surcharge
  * - fixed invalid customer delivery zip code
+ *
+ * 1.5.1
+ * - fixed exception handling in update
  *
  * @package   OstShippingCosts
  *

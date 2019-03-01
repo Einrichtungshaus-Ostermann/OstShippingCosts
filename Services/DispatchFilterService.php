@@ -41,7 +41,7 @@ class DispatchFilterService implements DispatchFilterServiceInterface
     {
         /* @var $basketService BasketServiceInterface */
         $basketService = Shopware()->Container()->get('ost_shipping_costs.basket_service');
-        
+
         // get our articles
         $articles = $basketService->getArticles();
 
