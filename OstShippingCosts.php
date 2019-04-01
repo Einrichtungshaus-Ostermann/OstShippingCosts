@@ -78,6 +78,9 @@
  * 1.5.1
  * - fixed exception handling in update
  *
+ * 1.5.2
+ * - added debug output to console commands
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>

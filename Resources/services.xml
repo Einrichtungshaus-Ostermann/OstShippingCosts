@@ -16,6 +16,11 @@
             <argument type="service" id="db"/>
         </service>
 
+        <service id="ost_shipping_costs.commands.sync_same_day_delivery_zip_command" class="OstShippingCosts\Commands\SyncSameDayDeliveryZipCommand">
+            <tag name="console.command" command="ost-shipping-costs:sync-same-day-delivery-zip"/>
+            <argument type="service" id="db"/>
+        </service>
+
         <!-- services -->
         <service id="ost_shipping_costs.article_service" class="OstShippingCosts\Services\ArticleService">
             <argument type="service" id="ost_shipping_costs.configuration" />

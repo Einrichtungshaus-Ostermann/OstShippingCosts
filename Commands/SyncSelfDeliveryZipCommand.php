@@ -44,9 +44,10 @@ class SyncSelfDeliveryZipCommand extends ShopwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         // are we inhouse and do we have the erp api!?
-        if (!Shopware()->Container()->initialized('ost_erp_api.api'))
-            // nothing to do
+        if (!Shopware()->Container()->initialized('ost_erp_api.api')) {
+            $output->writeln('ost-erp-api not avaiable');
             return;
+        }
 
         /* @var $api Api */
         $api = Shopware()->Container()->get('ost_erp_api.api');
