@@ -81,6 +81,9 @@
  * 1.5.2
  * - added debug output to console commands
  *
+ * 1.5.3
+ * - changed shipping costs calculation
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>

@@ -70,25 +70,43 @@ class ArticleService implements ArticleServiceInterface
      */
     public function isAddition(array $attributes): bool
     {
-        // we never ever have addition if we are ostermann with online shop
-        if ((int) Shopware()->Container()->get('ost_foundation.configuration')['company'] === self::COMPANY_OSTERMANN && (string) Shopware()->Container()->get('ost_foundation.configuration')['shop'] === 'online') {
-            // nope
+        // get the current company and context
+        $company = (int) Shopware()->Container()->get('ost_foundation.configuration')['company'];
+        $context = (string) Shopware()->Container()->get('ost_foundation.configuration')['shop'];
+
+        // get iwm data
+        $iwmCosts = (float) $attributes[$this->configuration['attributeDispatchCosts']];
+        $iwmAddition = (int) $attributes[$this->configuration['attributeDispatchAddition']];
+
+        // P niemals addition
+
+        // G:
+        // - im OMS NIE addition
+        // - in trends NIE addition
+        // - in ostermann NIE addition
+
+        // stand 26. november 2019
+        //
+        // -> preise für oms korrigieren (abolhpreis korrekt an oms übergeben)
+        //    -> gantenberg korrigiert access abfragen
+        //    -> aktuell überschreibt vollservicepreis auch den abholpreis (= preis 1)
+        //
+        // aktuelle zwischenlösung:
+        // -> KEINE addition in KEINEM online-shop
+
+        // never online
+        if ($context === 'online') {
+            // never
             return false;
         }
 
-        // trends and oms with iwm shipping costs is always addition
-        if (in_array((int) Shopware()->Container()->get('ost_foundation.configuration')['company'], array(self::COMPANY_TRENDS, self::COMPANY_MOEBEL_SHOP)) && (float) $attributes[$this->configuration['attributeDispatchCosts']] > 0) {
-            // always addition
-            return true;
-        }
-
         // it is always addition if: type = p, context = inhouse, iwm shipping costs > 0
-        if ((string) Shopware()->Container()->get('ost_foundation.configuration')['shop'] === 'inhouse' && $this->getDispatchType($attributes) == "P" & (float) $attributes[$this->configuration['attributeDispatchCosts']] > 0) {
+        if ($context === 'inhouse' && $this->getDispatchType($attributes) === "P" && $iwmCosts > 0) {
             // yes... always addition
             return true;
         }
 
         // return by attribute
-        return (int) $attributes[$this->configuration['attributeDispatchAddition']] === 1;
+        return $iwmAddition === 1;
     }
 }
