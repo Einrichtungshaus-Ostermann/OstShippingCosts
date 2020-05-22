@@ -43,6 +43,108 @@ class SyncSelfDeliveryZipCommand extends ShopwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+
+        die('active this feature');
+
+        $handle = fopen("zip.csv", "r");
+
+
+        $erpZips = array();
+
+        while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
+
+            $erpZips[] = array((int) $data[2], (int) $data[3]);
+        }
+        fclose($handle);
+
+
+
+
+        // remove every current zip
+        $query = '
+            TRUNCATE ost_shipping_costs_selfdelivery;
+        ';
+        $this->db->query($query);
+
+        // start the progress bar
+        $progressBar = new ProgressBar($output, count($erpZips));
+        $progressBar->setRedrawFrequency(10);
+        $progressBar->start();
+
+        // ...
+        foreach ($erpZips as $erpZip) {
+            // advance progress bar
+            $progressBar->advance();
+
+            // set start and end zips and check to prevent massive failure
+            $start = (int) $erpZip[0];
+            $end = (int) $erpZip[1];
+
+            // max 100 or this counts as invalid
+            if (($end - $start > 100) || ($end - $start < 0)) {
+                // next
+                continue;
+            }
+
+            // every zip
+            for ($i = $start; $i <= $end; ++$i) {
+                // ...
+                $query = '
+                    INSERT INTO ost_shipping_costs_selfdelivery
+                    SET zip = :zip
+                ';
+                $this->db->query($query, ['zip' => $i]);
+            }
+        }
+
+        // done
+        $progressBar->finish();
+        $output->writeln('');
+
+
+
+
+        die();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // are we inhouse and do we have the erp api!?
         if (!Shopware()->Container()->initialized('ost_erp_api.api')) {
             $output->writeln('ost-erp-api not avaiable');

@@ -84,6 +84,9 @@
  * 1.5.3
  * - changed shipping costs calculation
  *
+ * 1.5.4
+ * - pre-version read self-delivery zip file
+ *
  * @package   OstShippingCosts
  *
  * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>
